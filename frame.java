@@ -7,6 +7,7 @@ import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.ImageIcon;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -83,6 +84,11 @@ public class frame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Student Result System");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 102), 4), "Student Records", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Siyam Rupali", 0, 24))); // NOI18N
@@ -101,7 +107,7 @@ public class frame extends javax.swing.JFrame {
 
         jLabel4.setText("Course Code:");
 
-        jLabel5.setText("Total Marks:");
+        jLabel5.setText("Grade Point:");
 
         jtxtAverage.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -109,9 +115,9 @@ public class frame extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setText("Average:");
+        jLabel6.setText("GPA:");
 
-        jLabel7.setText("Ranking:");
+        jLabel7.setText("Rank:");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "CSE 2100", "CSE 2101", "CSE 2102", "CSE 2103", "CSE 2104", "MATH 2113", "HUM 2113", "EEE 2151", "EEE 2152" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
@@ -229,7 +235,7 @@ public class frame extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jtxt2104, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jtxt2103, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(83, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -323,7 +329,7 @@ public class frame extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Roll No", "Course Code", "CSE 2100", "CSE 2101", "CSE 2102", "CSE 2103", "CSE 2104", "MATH 2113", "HUM 2113", "EEE 2151", "EEE2152", "Total Score", "Average", "Ranking"
+                "Roll No", "Course Code", "CSE 2100", "CSE 2101", "CSE 2102", "CSE 2103", "CSE 2104", "MATH 2113", "HUM 2113", "EEE 2151", "EEE2152", "Grade point", "GPA", "Rank"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -355,7 +361,7 @@ public class frame extends javax.swing.JFrame {
         });
         getContentPane().add(jbtnReset, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 630, 80, -1));
 
-        jbtnRanking.setText("Ranking");
+        jbtnRanking.setText("Calculate");
         jbtnRanking.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnRankingActionPerformed(evt);
@@ -405,10 +411,11 @@ public class frame extends javax.swing.JFrame {
     private void jtxt2151ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxt2151ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jtxt2151ActionPerformed
-
+double[] R=new double[14];
+double[] T=new double[14];
     private void jbtnRankingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnRankingActionPerformed
         // TODO add your handling code here:
-        double[] R=new double[14];
+        
         R[0]= Double.parseDouble(jtxt2100.getText());
         R[1]= Double.parseDouble(jtxt2101.getText());
         R[2]= Double.parseDouble(jtxt2102.getText());
@@ -419,31 +426,70 @@ public class frame extends javax.swing.JFrame {
         R[7]= Double.parseDouble(jtxt2151.getText());
         R[8]= Double.parseDouble(jtxt2152.getText());
         
-        R[9]= (R[0] + R[1] + R[2] + R[3] + R[4] + R[5] + R[6] + R[7] + R[8])/9;
-        R[10]=R[0] + R[1] + R[2] + R[3] + R[4] + R[5] + R[6] + R[7] + R[8];
+        //R[9]= (R[0] + R[1] + R[2] + R[3] + R[4] + R[5] + R[6] + R[7] + R[8])/9;
+        //R[10]=R[0] + R[1] + R[2] + R[3] + R[4] + R[5] + R[6] + R[7] + R[8];
         
-        String Average= String.format("%.0f",R[9]);
+        /*String Average= String.format("%.0f",R[9]);
         jtxtAverage.setText(Average);
         
         String TotalScore= String.format("%.0f",R[10]);
+        jtxtTotalMarks.setText(TotalScore);*/
+        
+        
+        for(int i=0;i<=8;i++)
+        {
+            if(R[i]>=80)R[i]=4.0;
+            else if(R[i]>=75 && R[i]<=79)R[i]=3.75;
+            else if(R[i]>=70 && R[i]<=74)R[i]=3.5;
+            else if(R[i]>=65 && R[i]<=69)R[i]=3.25;
+            else if(R[i]>=60 && R[i]<=64)R[i]=3.0;
+            else if(R[i]>=55 && R[i]<=59)R[i]=2.75;
+            else if(R[i]>=50 && R[i]<=54)R[i]=2.5;
+            else if(R[i]>=45 && R[i]<=49)R[i]=2.25;
+            else if(R[i]>=40 && R[i]<=44)R[i]=2.0;
+            else
+                R[i]=0;
+            T[i]=R[i];
+        }
+        
+        R[0]=R[0]*0.75;
+        R[1]=R[1]*3;
+        R[2]=R[2]*1.5;
+        R[3]=R[3]*3;
+        R[4]=R[4]*1.5;
+        R[5]=R[5]*3;
+        R[6]=R[6]*3;
+        R[7]=R[7]*3;
+        R[8]=R[8]*1.5;
+        
+        R[9]= (R[0] + R[1] + R[2] + R[3] + R[4] + R[5] + R[6] + R[7] + R[8])/20.25;
+        R[10]=R[0] + R[1] + R[2] + R[3] + R[4] + R[5] + R[6] + R[7] + R[8];
+        
+        R[9]=Math.round(R[9]*100.0)/100.0;
+        String Average= Double.toString(R[9]);
+        jtxtAverage.setText(Average);
+        
+        String TotalScore= Double.toString(R[10]);
         jtxtTotalMarks.setText(TotalScore);
         
-        if(R[10]>=800)
+        if(R[9]>=3.00 && R[9]<3.75)
         {
-            jtxtRanking.setText("1st");
+            jtxtRanking.setText("First Class");
         }
-        else if(R[10]>=700)
+        else if(R[9]<3.00  && R[9]>=2.20)
         {
-            jtxtRanking.setText("2nd");
+            jtxtRanking.setText("Second Class");
         }
-        else if(R[10]>=600)
+        else if(R[9]<2.20)
         {
-            jtxtRanking.setText("3rd");
+            jtxtRanking.setText("Failed");
         }
-        else if(R[10]>=500)
+        else if(R[9]>=3.75)
         {
-            jtxtRanking.setText("4th");
+            jtxtRanking.setText("First Class With Honours");
         }
+        
+        
         DefaultTableModel model=(DefaultTableModel)jTable1.getModel();
         
         model.addRow(new Object[]{
@@ -458,7 +504,7 @@ public class frame extends javax.swing.JFrame {
             jtxthum2113.getText(),
             jtxt2151.getText(),
             jtxt2152.getText(),
-            jtxtTotalMarks.getText(),
+            R[10],
             jtxtAverage.getText(),
             jtxtRanking.getText(),
             
@@ -493,21 +539,39 @@ private JFrame frame;
         // TODO add your handling code here:
         jtxtTranscript.append("Student Result System\n"+
                               "=====================\n"+
-                                "\nCSE 2100\t\t" +jtxt2100.getText()+
-                                "\nCSE 2101\t\t" +jtxt2101.getText()+
-                                "\nCSE 2102\t\t" +jtxt2102.getText()+
-                                "\nCSE 2103\t\t" +jtxt2103.getText()+
-                                    "\nCSE 2104\t\t" +jtxt2104.getText()+
+                "Student's Name\t\t"+jtxtFirstName.getText()+" "+jtxtLastName.getText()+
+                "\nRoll NO\t\t\t"+jtxtRollNo.getText()+
+                                "\nCSE 2100\t\t" //+//jtxt2100.getText()+
+                                +T[0]+"\nCSE 2101\t\t" //+//jtxt2101.getText()
+                +T[1]+
+                                "\nCSE 2102\t\t" //+//jtxt2102.getText()
+                +T[2]+
+                                "\nCSE 2103\t\t" +//jtxt2103.getText()
+                +T[3]+
+                                    "\nCSE 2104\t\t" +//jtxt2104.getText()
+                +T[4]+
                                     
-                                    "\nHUM 2113\t\t" +jtxthum2113.getText()+
-                                    "\nEEE 2151\t\t" +jtxt2100.getText()+
-                                        "\nEEE 2152\t\t"+jtxt2100.getText()+
-                                    "\nMATH 2113\t\t" +jtxtmath2113.getText()+
-                                    "\nTotal Score\t\t"+jtxtTotalMarks.getText()+
-                                    "\nAverage \t\t"+jtxtAverage.getText()+
-                "\nRanking \t\t"+jtxtRanking.getText()
+                                    "\nHUM 2113\t\t" +//jtxthum2113.getText()
+                +T[5]+
+                                    "\nEEE 2151\t\t" +//jtxt2100.getText()
+                +T[6]+
+                                        "\nEEE 2152\t\t"+//jtxt2100.getText()
+                +T[7]+
+                                    "\nMATH 2113\t\t" +//jtxtmath2113.getText()
+                +T[8]+
+                                    "\nGrade Point\t\t"+//jtxtTotalMarks.getText()
+                +R[10]+
+                                    "\nGPA\t\t\t"+//jtxtAverage.getText()
+                +R[9]+
+                "\nRank \t\t\t"+jtxtRanking.getText()
         +"\n");
     }//GEN-LAST:event_jbtnTranscriptActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+        ImageIcon icon= new ImageIcon("src/com.png");
+        setIconImage(icon.getImage());
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments
