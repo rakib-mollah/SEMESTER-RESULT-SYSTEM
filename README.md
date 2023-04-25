@@ -1,0 +1,5 @@
+# SEMESTER-RESULT-SYSTEM![Capture](https://user-images.githubusercontent.com/54777291/234185098-4defa06e-a5c7-4223-b5a0-c93dbb1dbb98.PNG)
+![grade](https://user-images.githubusercontent.com/54777291/234185110-04c008dd-b428-42a0-8f63-31e912f056c1.PNG)
+![netbeans](https://user-images.githubusercontent.com/54777291/234185116-53414552-4521-4c44-88e8-ca37dcfafe01.PNG)
+![rank](https://user-images.githubusercontent.com/54777291/234185135-ba040cca-f5b9-429f-a955-e68f043235c5.PNG)
+![whole](https://user-images.githubusercontent.com/54777291/234185145-a7faefde-7506-4329-aa49-542b279c7b56.PNG)
